@@ -44,21 +44,21 @@ pipeline {
                 // sh 'aws deploy --to production'
             }
         }
-        stage('Send Email Notification') {
-            steps {
-                // 使用郵件通知插件發送郵件通知
-                // 如果前面任何階段的步驟失敗，則通知失敗；否則，通知成功
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    emailext body: 'Your Jenkins pipeline has finished successfully.',
-                            subject: 'Jenkins Pipeline Notification - Success',
-                            to: 's223765611@deakin.edu.au'
-                }
-                catchError(buildResult: 'FAILURE') {
-                    emailext body: 'Your Jenkins pipeline has failed.',
-                            subject: 'Jenkins Pipeline Notification - Failure',
-                            to: 's223765611@deakin.edu.au'
-                }
-            }
+        
+    }
+    post {
+        failure {
+            // 如果管道失敗，發送失敗的郵件通知
+            emailext body: 'Your Jenkins pipeline has failed.',
+                    subject: 'Jenkins Pipeline Notification - Failure',
+                    to: 's223765611@deakin.edu.au'
+        }
+        success {
+            // 如果管道成功，發送成功的郵件通知
+            emailext body: 'Your Jenkins pipeline has finished successfully.',
+                    subject: 'Jenkins Pipeline Notification - Success',
+                    to: 's223765611@deakin.edu.au'
         }
     }
 }
+
