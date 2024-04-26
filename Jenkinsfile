@@ -4,48 +4,50 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // 在這裡添加構建步驟，例如使用Maven進行代碼編譯和打包
-                // sh 'mvn clean package'
+                // Use Maven to build the code
+                sh 'mvn clean package'
             }
         }
         stage('Unit and Integration Tests') {
             steps {
-                // 在這裡添加單元測試和集成測試步驟，使用測試自動化工具進行測試
-                // sh 'npm test'
+                // Use JUnit for unit tests and Selenium for integration tests
+                sh 'mvn test'
+                // Use Selenium for integration tests
+                sh 'mvn integration-test'
             }
         }
         stage('Code Analysis') {
             steps {
-                // 在這裡添加代碼分析步驟，例如使用Jenkins集成的代碼分析工具
-                // sh 'mvn sonar:sonar'
+                // Integrate SonarQube for code analysis
+                sh 'sonar-scanner'
             }
         }
         stage('Security Scan') {
             steps {
-                // 在這裡添加安全掃描步驟，使用安全掃描工具進行代碼安全掃描
-                // sh 'npm audit'
+                // Use OWASP Dependency-Check for security scanning
+                sh 'dependency-check.sh --project myProject --scan .'
             }
         }
         stage('Deploy to Staging') {
             steps {
-                // 在這裡添加部署到測試環境的步驟，例如部署到AWS EC2實例
-                // sh 'aws deploy --to staging'
+                // Deploy application to AWS EC2 instance
+                sh 'scp -r target/myApp.jar user@staging-server:/path/to/deployment'
             }
         }
         stage('Integration Tests on Staging') {
             steps {
-                // 在這裡添加在測試環境上運行集成測試的步驟
-                // sh 'npm run test:integration'
+                // Run integration tests on staging environment
+                sh 'ssh user@staging-server "cd /path/to/deployment && java -jar myApp.jar"'
             }
         }
         stage('Deploy to Production') {
             steps {
-                // 在這裡添加部署到生產環境的步驟，例如部署到AWS EC2實例
-                // sh 'aws deploy --to production'
+                // Deploy application to AWS EC2 instance
+                sh 'scp -r target/myApp.jar user@production-server:/path/to/deployment'
             }
         }
-        
     }
+
     post {
         failure {
             // 如果管道失敗，發送失敗的郵件通知
