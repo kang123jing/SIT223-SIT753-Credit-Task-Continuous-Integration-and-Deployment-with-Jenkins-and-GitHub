@@ -44,13 +44,13 @@ pipeline {
             emailext attachLog: true,
                     body: 'Security Scan stage completed successfully.',
                     subject: 'Security Scan: Success',
-                    to: 'kangjing170@gmail.com'
+                    to: '17321323256@163.com'
             }
         failure {
             emailext attachLog: true,
                     body: 'Security Scan stage failed.',
                     subject: 'Security Scan: Failure',
-                    to: 'kangjing170@gmail.com'
+                    to: '17321323256@163.com'
         }
     }
 }
