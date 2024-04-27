@@ -11,12 +11,29 @@ pipeline {
             steps {
                  echo'2'
             }
+             post {
+        failure {
+             
+            emailext body: 'Your Jenkins pipeline has failed.',
+                    subject: 'Jenkins Pipeline Notification - Failure',
+                    to: 'kangjing170@gmail.com'
+        }
+        success {
+             
+            emailext body: 'Your Jenkins pipeline has finished successfully.',
+                    subject: 'Jenkins Pipeline Notification - Success',
+                   to: 'kangjing170@gmail.com'
+       }
+    }
         }
         stage('Code Analysis') {
             steps {
                 echo'3' 
             }
+            
+    }
         }
+
         stage('Security Scan') {
             steps {
                  echo'4'
@@ -39,19 +56,6 @@ pipeline {
         }
         
     }
-    post {
-        failure {
-             如果管道失敗，發送失敗的郵件通知
-            emailext body: 'Your Jenkins pipeline has failed.',
-                    subject: 'Jenkins Pipeline Notification - Failure',
-                    to: 'kangjing170@gmail.com'
-        }
-        success {
-             如果管道成功，發送成功的郵件通知
-            emailext body: 'Your Jenkins pipeline has finished successfully.',
-                    subject: 'Jenkins Pipeline Notification - Success',
-                   to: 'kangjing170@gmail.com'
-       }
-    }
-}
+    
+
 
