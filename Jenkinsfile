@@ -4,44 +4,37 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                ech0// 在這裡添加構建步驟，例如使用Maven進行代碼編譯和打包
-                // sh 'mvn clean package'
+                echo'1'
             }
         }
         stage('Unit and Integration Tests') {
             steps {
-                 ech0// 在這裡添加單元測試和集成測試步驟，使用測試自動化工具進行測試
-                // sh 'npm test'
+                 echo'2'
             }
         }
         stage('Code Analysis') {
             steps {
-                ech0 // 在這裡添加代碼分析步驟，例如使用Jenkins集成的代碼分析工具
-                // sh 'mvn sonar:sonar'
+                echo'3' 
             }
         }
         stage('Security Scan') {
             steps {
-                 ech0// 在這裡添加安全掃描步驟，使用安全掃描工具進行代碼安全掃描
-                // sh 'npm audit'
+                 echo'4'
             }
         }
         stage('Deploy to Staging') {
             steps {
-                 ech0// 在這裡添加部署到測試環境的步驟，例如部署到AWS EC2實例
-                // sh 'aws deploy --to staging'
+                 echo'5'
             }
         }
         stage('Integration Tests on Staging') {
             steps {
-                 ech0// 在這裡添加在測試環境上運行集成測試的步驟
-                // sh 'npm run test:integration'
+                 echo'6'
             }
         }
         stage('Deploy to Production') {
             steps {
-                ech0 // 在這裡添加部署到生產環境的步驟，例如部署到AWS EC2實例
-                // sh 'aws deploy --to production'
+                echo'7'
             }
         }
         
